@@ -9,6 +9,7 @@ Perpustakaan App adalah aplikasi e-perpustakaan berbasis web yang dibuat menggun
 -   PHP versi 8.0.2 ke-atas.
 -   Composer versi 2 ke-atas.
 -   Relational Database (MySQL, PostgreSQL, dll).
+-   NPM versi 8 ke-atas.
 
 ## Quick Start
 
@@ -16,6 +17,7 @@ Perpustakaan App adalah aplikasi e-perpustakaan berbasis web yang dibuat menggun
 git clone git@github.com:aydinpramasta/perpustakaan-app.git
 cd perpustakaan-app
 composer install
+npm install
 cp .env.example .env
 ```
 
@@ -33,7 +35,14 @@ DB_PASSWORD=
 ```bash
 php artisan key:generate
 php artisan migrate --seed
+
+npm run dev
+```
+
+> Buka terminal baru.
+
+```bash
 php artisan serve
 ```
 
-> Akses <a href="http://localhost:8000" target="_blank">http://localhost:8000</a>.
+> Akses [http://localhost:8000](http://localhost:8000).
