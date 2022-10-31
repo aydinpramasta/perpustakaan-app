@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Test',
                 'username' => 'test',
                 'role' => User::ADMIN,
-                'class' => null,
                 'password' => bcrypt('password')
             ]);
         }
