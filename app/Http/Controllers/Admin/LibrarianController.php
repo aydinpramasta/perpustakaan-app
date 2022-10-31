@@ -13,10 +13,12 @@ class LibrarianController extends Controller
     {
         $librarians = User::where('role', User::LIBRARIAN);
 
-        $librarians->when($request->search, function ($query) use ($request) {
-            $query->where('name', 'LIKE', "%{$request->search}%")
-                ->orWhere('username', 'LIKE', "%{$request->search}%")
-                ->orWhere('phone', 'LIKE', "%{$request->search}%");
+        $librarians->when($request->search, function ($librarians) use ($request) {
+            $librarians->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->search}%")
+                    ->orWhere('username', 'LIKE', "%{$request->search}%")
+                    ->orWhere('phone', 'LIKE', "%{$request->search}%");
+            });
         });
 
         $librarians = $librarians->latest()->paginate(10);
@@ -55,16 +57,18 @@ class LibrarianController extends Controller
             );
     }
 
-    public function edit(User $user)
+    public function edit(User $librarian)
     {
-        abort_if($user->role !== User::LIBRARIAN, 404);
+        abort_if($librarian->role !== User::LIBRARIAN, 404);
 
-        return view('admin.librarians.edit');
+        return view('admin.librarians.edit')->with([
+            'librarian' => $librarian,
+        ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $librarian)
     {
-        abort_if($user->role !== User::LIBRARIAN, 404);
+        abort_if($librarian->role !== User::LIBRARIAN, 404);
 
         $credentials = $request->validate([
             'name' => ['required', 'string'],
@@ -77,7 +81,7 @@ class LibrarianController extends Controller
         $password = "librarian-{$credentials['username']}";
         $credentials['password'] = Hash::make($password);
 
-        $user->update($credentials);
+        $librarian->update($credentials);
 
         return redirect()->route('admin.librarians.index')
             ->with(
@@ -88,14 +92,16 @@ class LibrarianController extends Controller
             );
     }
 
-    public function destroy(User $user)
+    public function destroy(User $librarian)
     {
-        $user->delete();
+        abort_if($librarian->role !== User::LIBRARIAN, 404);
+
+        $librarian->delete();
 
         return redirect()->route('admin.librarians.index')
             ->with(
                 'success',
-                'Berhasil mengedit pustakawan.'
+                'Berhasil menghapus pustakawan.'
             );
     }
 }

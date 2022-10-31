@@ -10,27 +10,31 @@
   </div>
 
   <nav class="mt-10">
-    <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.dashboard') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
-      href="{{ route('admin.dashboard') }}">
-      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-      </svg>
+    @if (auth()->user()->role === App\Models\User::ADMIN)
+      <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.dashboard') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
+        href="{{ route('admin.dashboard') }}">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+        </svg>
 
-      <span class="mx-3">Dashboard</span>
-    </a>
+        <span class="mx-3">Dashboard</span>
+      </a>
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-      href="#">
-      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-      </svg>
+      <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.librarians.*') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
+        href="{{ route('admin.librarians.index') }}">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
 
-      <span class="mx-3">Pustakawan</span>
-    </a>
+        <span class="mx-3">Pustakawan</span>
+      </a>
+    @endif
 
     <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
       href="#">
