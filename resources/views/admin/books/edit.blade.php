@@ -51,7 +51,13 @@
           <label class="block text-sm text-gray-700">
             Cover &nbsp;<small>max: 2MB</small>
           </label>
-          <input type="file" name="cover" class="block w-full rounded-md form-input focus:border-indigo-600" />
+          <input type="file" name="cover" id="cover" accept="image/*"
+            class="block w-full rounded-md form-input focus:border-indigo-600" />
+        </div>
+
+        <div class="mt-8 mb-2 flex justify-center">
+          <img id="bookCover" class="rounded-md w-[300px]" src="{{ asset('storage/' . $book->cover) }}"
+            alt="{{ $book->title }}">
         </div>
 
         <div class="my-2">
@@ -75,4 +81,12 @@
         </div>
     </div>
   </div>
+
+  <script>
+    document.querySelector("#cover").addEventListener("change", event => {
+      if (event.target.files[0]) {
+        document.querySelector("#bookCover").src = URL.createObjectURL(event.target.files[0]);
+      }
+    });
+  </script>
 @endsection
