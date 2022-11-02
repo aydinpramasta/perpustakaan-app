@@ -10,7 +10,7 @@
 
 <body>
   <center>
-    @if (in_array(auth()->user()?->role, ['admin', 'pustakawan']))
+    @if (in_array(auth()->user()?->role, ['admin', 'librarian']))
       <a href="{{ route('admin.dashboard') }}">Ke Dashboard</a>
     @endif
 

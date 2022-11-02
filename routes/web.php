@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LibrarianController;
 use App\Http\Controllers\AuthController;
@@ -26,6 +27,10 @@ Route::middleware('auth')->group(function () {
 
             Route::resource('/librarians', LibrarianController::class)
                 ->middleware('role:admin');
+
+            Route::middleware('role:librarian')->group(function () {
+                Route::resource('/books', BookController::class);
+            });
         });
 });
 

@@ -10,7 +10,7 @@
   </div>
 
   <nav class="mt-10">
-    @if (auth()->user()->role === App\Models\User::ADMIN)
+    @if (in_array(auth()->user()->role, [App\Models\User::ADMIN, App\Models\User::LIBRARIAN]))
       <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.dashboard') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
         href="{{ route('admin.dashboard') }}">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -23,7 +23,9 @@
 
         <span class="mx-3">Dashboard</span>
       </a>
+    @endif
 
+    @if (auth()->user()->role === App\Models\User::ADMIN)
       <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.librarians.*') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
         href="{{ route('admin.librarians.index') }}">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -36,15 +38,18 @@
       </a>
     @endif
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-      href="#">
-      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-      </svg>
+    @if (auth()->user()->role === App\Models\User::LIBRARIAN)
+      <a class="flex items-center px-6 py-2 mt-4 {{ request()->routeIs('admin.books.*') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
+        href="{{ route('admin.books.index') }}">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+        </svg>
 
-      <span class="mx-3">Buku</span>
-    </a>
+        <span class="mx-3">Buku</span>
+      </a>
+    @endif
 
     <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
       href="#">
