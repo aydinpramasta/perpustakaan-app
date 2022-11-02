@@ -19,11 +19,26 @@
         <a href="{{ route('home') }}" class="text-gray-700 font-semibold text-2xl">E-Perpustakaan</a>
       </div>
 
+      @if ($errors->any())
+        <div class="my-4">
+          <div class="font-medium text-red-600">
+            {{ __('Whoops! Something went wrong.') }}
+          </div>
+
+          <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       <form class="mt-4" action="{{ route('authenticate') }}" method="POST">
         @csrf
         <label class="block">
           <span class="text-gray-700 text-sm">Username</span>
-          <input type="text" name="username" class="form-input mt-1 block w-full rounded-md focus:border-indigo-600">
+          <input type="text" name="username" value="{{ old('username') }}"
+            class="form-input mt-1 block w-full rounded-md focus:border-indigo-600">
         </label>
 
         <label class="block mt-3">

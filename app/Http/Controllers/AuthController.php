@@ -26,7 +26,9 @@ class AuthController extends Controller
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
-        return back()->withErrors('username', __('auth.failed'));
+        return back()->withErrors([
+            'username' => __('auth.failed'),
+        ]);
     }
 
     public function logout(Request $request)
