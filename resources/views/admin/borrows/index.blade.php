@@ -39,6 +39,7 @@
 
     <select name="status"
       class="text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input">
+      <option value="">-- Pilih Status --</option>
       <option value="borrowed" @selected(old('status') === 'borrowed')>Sedang dipinjam</option>
       <option value="returned" @selected(old('status') === 'returned')>Telah dikembalikan</option>
     </select>
