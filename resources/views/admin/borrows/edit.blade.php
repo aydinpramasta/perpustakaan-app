@@ -79,7 +79,7 @@
           <label class="inline-flex items-center">
             <input name="returned_at" type="checkbox" class="form-checkbox h-5 w-5 text-blue-600"
               @checked(!is_null($borrow->returned_at))>
-            <span class="ml-2 text-gray-700">Sudah dikembalikan</span>
+            <span class="ml-2 text-gray-700">Telah dikembalikan</span>
           </label>
         </div>
 
