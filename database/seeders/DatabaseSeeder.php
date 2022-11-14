@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
+use App\Models\BorrowedBook;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -35,6 +37,17 @@ class DatabaseSeeder extends Seeder
                 'role' => User::LIBRARIAN,
                 'password' => bcrypt('password')
             ]);
+
+            User::factory()->create([
+                'name' => 'Member 1',
+                'username' => 'member1',
+                'role' => User::MEMBER,
+                'password' => bcrypt('password'),
+            ]);
+
+            Book::factory()->create();
+
+            BorrowedBook::factory()->create();
         }
     }
 }

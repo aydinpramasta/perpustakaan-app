@@ -73,6 +73,7 @@
             Submit
           </button>
         </div>
+      </form>
     </div>
   </div>
 @endsection

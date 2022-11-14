@@ -2,9 +2,9 @@
 
 @section('body')
   <div class="flex justify-between">
-    <h3 class="text-gray-700 text-3xl font-medium">Pustakawan</h3>
+    <h3 class="text-gray-700 text-3xl font-medium">Peminjaman Buku</h3>
 
-    <a href="{{ route('admin.librarians.create') }}"
+    <a href="{{ route('admin.borrows.create') }}"
       class="py-2 px-4 text-center bg-green-600 rounded-md text-white text-sm hover:bg-green-500">
       Tambah
     </a>
@@ -28,20 +28,18 @@
     </div>
   @endif
 
-  <div class="mt-8 flex justify-center flex-1">
-    <form action="{{ route('admin.librarians.index') }}" class="relative w-full">
-      <button type="submit" class="absolute inset-y-0 flex items-center pl-2">
-        <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
-      <input name="search" value="{{ request()->input('search') ?? '' }}"
-        class="w-full pl-8 pr-2 text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input"
-        type="text" placeholder="Search" aria-label="Search" />
-    </form>
-  </div>
+  <form action="{{ route('admin.borrows.index') }}"
+    class="relative mt-8 flex flex-wrap flex-col lg:flex-row gap-2 justify-end flex-1">
+    <input name="search" value="{{ request()->input('search') ?? '' }}"
+      class="text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input"
+      type="text" placeholder="Cari" />
+
+    <input type="date" name="date" value="{{ request()->input('date') }}"
+      class="text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input">
+
+    <button type="submit"
+      class="py-2 px-4 text-center bg-yellow-500 rounded-md text-white text-sm hover:bg-yellow-400">Filter</button>
+  </form>
 
   <div class="flex flex-col mt-3">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -51,38 +49,39 @@
             <tr>
               <th
                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Nama</th>
+                Peminjam</th>
               <th
                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Username</th>
+                Buku</th>
               <th
                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                No. HP</th>
+                Tenggat</th>
               <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
             </tr>
           </thead>
 
           <tbody class="bg-white">
-            @foreach ($librarians as $librarian)
+            @foreach ($borrows as $borrow)
               <tr>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 font-medium text-gray-900">{{ $librarian->name }}</div>
+                  <div class="text-sm leading-5 font-medium text-gray-900">{{ $borrow->user->name }}</div>
                 </td>
 
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">{{ $librarian->username }}</div>
+                  <div class="text-sm leading-5 text-gray-900">{{ $borrow->book->title }}</div>
                 </td>
 
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">{{ $librarian->phone }}</div>
+                  <div class="text-sm leading-5 text-gray-900">{{ $borrow->due->locale('id')->isoFormat('LL') }}
+                  </div>
                 </td>
 
                 <td
                   class="px-6 py-4 md:flex md:flex-wrap md:gap-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                  <a href="{{ route('admin.librarians.edit', ['librarian' => $librarian->id]) }}"
+                  <a href="{{ route('admin.borrows.edit', ['borrow' => $borrow->id]) }}"
                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
                   <form onsubmit="return window.confirm('Anda yakin?')"
-                    action="{{ route('admin.librarians.destroy', ['librarian' => $librarian->id]) }}" method="POST">
+                    action="{{ route('admin.borrows.destroy', ['borrow' => $borrow->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
 
@@ -95,8 +94,9 @@
         </table>
 
         <div class="flex flex-col xs:flex-row justify-between px-5 py-5 bg-white border-t">
-          {{ $librarians->appends([
+          {{ $borrows->appends([
                   'search' => request()->input('search'),
+                  'date' => request()->input('date'),
               ])->links() }}
         </div>
       </div>

@@ -88,7 +88,9 @@
         </table>
 
         <div class="flex flex-col xs:flex-row justify-between px-5 py-5 bg-white border-t">
-          {{ $books->links() }}
+          {{ $books->appends([
+                  'search' => request()->input('search'),
+              ])->links() }}
         </div>
       </div>
     </div>
