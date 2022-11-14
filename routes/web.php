@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin')
         ->name('admin.')
         ->group(function () {
-            Route::get('/dashboard', [HomeController::class, 'index'])
+            Route::get('/dashboard', HomeController::class)
                 ->middleware('role:admin,librarian')
                 ->name('dashboard');
 
