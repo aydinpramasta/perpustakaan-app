@@ -37,6 +37,12 @@
     <input type="date" name="date" value="{{ request()->input('date') }}"
       class="text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input">
 
+    <select name="status"
+      class="text-sm text-gray-700 border-0 placeholder-gray-600 bg-gray-50 rounded-md shadow focus:bg-white focus:border-gray-300 focus:outline-none form-input">
+      <option value="borrowed" @selected(old('status') === 'borrowed')>Sedang dipinjam</option>
+      <option value="returned" @selected(old('status') === 'returned')>Telah dikembalikan</option>
+    </select>
+
     <button type="submit"
       class="py-2 px-4 text-center bg-yellow-500 rounded-md text-white text-sm hover:bg-yellow-400">Filter</button>
   </form>
@@ -110,6 +116,7 @@
           {{ $borrows->appends([
                   'search' => request()->input('search'),
                   'date' => request()->input('date'),
+                  'status' => request()->input('status'),
               ])->links() }}
         </div>
       </div>

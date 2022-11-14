@@ -29,6 +29,16 @@ class BorrowController extends Controller
             });
         });
 
+        $borrows->when($request->status, function ($borrows) use ($request) {
+            $borrows->where(function ($query) use ($request) {
+                if ($request->status === 'borrowed') {
+                    $query->whereNull('returned_at');
+                } else if ($request->status === 'returned') {
+                    $query->whereNotNull('returned_at');
+                }
+            });
+        });
+
         $borrows = $borrows->latest('id')->paginate(50);
 
         return view('admin.borrows.index')->with([
