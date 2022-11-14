@@ -15,4 +15,9 @@ class Book extends Model
         'description',
         'cover',
     ];
+
+    public function borrows()
+    {
+        return $this->hasMany(BorrowedBook::class, 'book_id');
+    }
 }
