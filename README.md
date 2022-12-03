@@ -21,7 +21,7 @@ npm install
 cp .env.example .env
 ```
 
-> Edit file ==.env==, sesuaikan kredensial database dengan mesin anda.
+> Edit file `.env`, sesuaikan kredensial database dengan mesin anda.
 
 ```
 DB_CONNECTION=mysql
