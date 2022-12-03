@@ -14,7 +14,7 @@ Perpustakaan App adalah aplikasi e-perpustakaan berbasis web yang dibuat menggun
 ## Quick Start
 
 ```bash
-git clone git@github.com:aydinpramasta/perpustakaan-app.git
+git clone https://github.com/aydinpramasta/perpustakaan-app.git
 cd perpustakaan-app
 composer install
 npm install
