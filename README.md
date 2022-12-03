@@ -36,12 +36,7 @@ DB_PASSWORD=
 php artisan key:generate
 php artisan migrate --seed
 
-npm run dev
-```
-
-> Buka terminal baru.
-
-```bash
+npm run build
 php artisan serve
 ```
 
